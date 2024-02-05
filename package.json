@@ -1,9 +1,14 @@
 {
     "scripts": {
-        "start": "http-server -p 3000 -c-1"
+        "start": "http-server -p 3000 -c-1",
+        "tsc": "tsc -w"
     },
     "devDependencies": {
+        "@types/pixi.js": "^5.0.0",
         "http-server": "^14.1.1",
         "typescript": "^5.3.3"
+    },
+    "dependencies": {
+        "pixi.js": "^7.4.0"
     }
 }

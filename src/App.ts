@@ -1,4 +1,6 @@
-const app = new PIXI.Application({ resizeTo: window, background: '#1099bb' });
+import * as PIXI from 'pixi.js';
+
+const app = new PIXI.Application<HTMLCanvasElement>({ resizeTo: window, background: '#1099bb' });
 document.body.appendChild(app.view);
 
 const gameControls = new PIXI.Container();
@@ -15,32 +17,32 @@ rectangle.drawRect(0, 0, 200, 100);
 gameControls.width = app.screen.width / 4;
 gameControls.height = app.screen.height;
 // gameControls.addChild(rectangle);
-gameControls.onmouseenter = (event) => {
-}
-gameControls.onmouseleave = (event) => {
-    gameControls.removeChild(rectangle);
-}
+// gameControls.onmouseenter = (event) => {
+// }
+// gameControls.onmouseleave = (event) => {
+//     gameControls.removeChild(rectangle);
+// }
 
 cellMatrix.width = (app.screen.width * 3) / 4; 
 cellMatrix.height = app.screen.height;
 cellMatrix.x = gameControls.width; // TODO CHECK
-cellMatrix.onmouseenter = (event) => {
-}
-cellMatrix.onmouseleave = (event) => {
-}
+// cellMatrix.onmouseenter = (event) => {
+// }
+// cellMatrix.onmouseleave = (event) => {
+// }
 
 const SIZE = 100;
 const CELL_SIZE = 8;
 
-let cells = [[]];
+let cells: PIXI.Graphics[][] = [];
 for (let i = 0; i < SIZE; i++) {
-    cells.push([]);
+    cells[i] = [];
     for (let j = 0; j < SIZE; j++) {
         let cell = new PIXI.Graphics();
         cell.beginFill(((i + j) % 2 === 0) ? 0x000000 : 0xffffff);
         cell.drawRect((j*CELL_SIZE), (i*CELL_SIZE), CELL_SIZE, CELL_SIZE);
 
-        cells.at(i).push(cell);
+        cells[i][j] = cell;
 
         cellMatrix.addChild(cell);
     }

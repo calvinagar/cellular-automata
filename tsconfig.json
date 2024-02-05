@@ -1,0 +1,10 @@
+{
+    "compilerOptions": {
+        "module": "es6",
+        "moduleResolution": "node",
+        "target": "es5",
+        "skipLibCheck": true,
+        "rootDir": "src",
+        "outDir": "bundle"
+    }
+}
