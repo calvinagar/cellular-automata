@@ -1,7 +1,7 @@
 {
     "scripts": {
-        "setup": "npm ci && tsc && npm start",
-        "start": "http-server -p 3000 -c-1",
+        "setup": "npm ci && npm start",
+        "start": "tsc && http-server -p 3000 -c-1",
         "tsc": "tsc -w"
     },
     "devDependencies": {
