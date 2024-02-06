@@ -1,9 +1,8 @@
 # Dependency directories
 node_modules/
 
-# TypeScript cache
-*.tsbuildinfo
-bundle/
+# Webpack build
+dist/
 
 # MacOS items
 .DS_Store

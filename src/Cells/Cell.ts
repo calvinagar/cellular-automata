@@ -13,5 +13,7 @@ export default class Cell {
         this.renderedCell = new PIXI.Graphics();
         this.renderedCell.beginFill(state.color);
         this.renderedCell.drawRect((pos.y*CELL_SIZE_PX), (pos.x*CELL_SIZE_PX), CELL_SIZE_PX, CELL_SIZE_PX);
+        
+        this.state = state;
     }
 }

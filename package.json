@@ -1,15 +1,20 @@
 {
     "scripts": {
         "setup": "npm ci && npm start",
-        "start": "tsc && http-server -p 3000 -c-1",
-        "tsc": "tsc -w"
+        "start": "webpack serve",
+        "build": "webpack build --mode development",
+        "prod": "webpack build --mode production"
     },
     "devDependencies": {
-        "@types/pixi.js": "^5.0.0",
-        "http-server": "^14.1.1",
-        "typescript": "^5.3.3"
+        "html-webpack-plugin": "^5.6.0",
+        "terser-webpack-plugin": "^5.3.10",
+        "ts-loader": "^9.5.1",
+        "typescript": "^5.3.3",
+        "webpack-cli": "^5.1.4",
+        "webpack-dev-server": "^4.15.1"
     },
     "dependencies": {
-        "pixi.js": "^7.4.0"
+        "pixi.js": "^7.4.0",
+        "webpack": "^5.90.1"
     }
 }

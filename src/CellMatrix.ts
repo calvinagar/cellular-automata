@@ -17,6 +17,9 @@ export default class CellMatrix {
         this.container.width = (app.screen.width * 3) / 4; 
         this.container.height = app.screen.height;
 
+        this.size = size;
+        this.cells = [];
+
         for (let i = 0; i < size; i++) {
             this.cells[i] = [];
             for (let j = 0; j < size; j++) {
