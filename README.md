@@ -1,15 +1,13 @@
 ## Available Scripts
 
-In the project directory, you can run:
+In the root directory, you can run:
 
-### `npm i`
+### `npm setup`
 
-Downloads the necessary packages to run the app locally.
+This downloads the necessary packages and runs the app locally in development mode.\
+Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 ### `npm start`
 
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will not reload if you make edits, you must refresh the page manually.\
-You will also see any lint errors in the console.
