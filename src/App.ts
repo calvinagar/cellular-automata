@@ -1,13 +1,13 @@
 import * as PIXI from 'pixi.js';
+import CellMatrix from './CellMatrix';
 
 const app = new PIXI.Application<HTMLCanvasElement>({ resizeTo: window, background: '#1099bb' });
 document.body.appendChild(app.view);
 
-const gameControls = new PIXI.Container();
-const cellMatrix = new PIXI.Container();
-app.stage.addChild(gameControls);
-app.stage.addChild(cellMatrix);
+const cellMatrix = new CellMatrix(app, 100);
 
+const gameControls = new PIXI.Container();
+app.stage.addChild(gameControls);
 
 // Create a Graphics object, set a fill color, draw a rectangle
 let rectangle = new PIXI.Graphics();
@@ -23,30 +23,6 @@ gameControls.height = app.screen.height;
 //     gameControls.removeChild(rectangle);
 // }
 
-cellMatrix.width = (app.screen.width * 3) / 4; 
-cellMatrix.height = app.screen.height;
-cellMatrix.x = gameControls.width; // TODO CHECK
-// cellMatrix.onmouseenter = (event) => {
-// }
-// cellMatrix.onmouseleave = (event) => {
-// }
-
-const SIZE = 100;
-const CELL_SIZE = 8;
-
-let cells: PIXI.Graphics[][] = [];
-for (let i = 0; i < SIZE; i++) {
-    cells[i] = [];
-    for (let j = 0; j < SIZE; j++) {
-        let cell = new PIXI.Graphics();
-        cell.beginFill(((i + j) % 2 === 0) ? 0x000000 : 0xffffff);
-        cell.drawRect((j*CELL_SIZE), (i*CELL_SIZE), CELL_SIZE, CELL_SIZE);
-
-        cells[i][j] = cell;
-
-        cellMatrix.addChild(cell);
-    }
-}
 
 // let elapsed = 0.0;
 // app.ticker.add((delta) => {
