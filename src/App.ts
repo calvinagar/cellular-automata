@@ -46,14 +46,14 @@ app.stage.addChild(gameContainer);
 // const cellMatrix = new CellMatrix(gameContainer, AUTOMATA_SIZE); // rip
 
 const cellMatrixContainer = new PIXI.Container();
-cellMatrixContainer.addEventListener('pointerdown', swapCellState);
+cellMatrixContainer.addEventListener('pointermove', swapCellState);
 cellMatrixContainer.eventMode = 'static';
 gameContainer.addChild(cellMatrixContainer);
 
 // this.container.x = gameContainer.x;
 // this.container.y = gameContainer.y;
 
-let cellMatrix: PIXI.Graphics[][] = [];
+const cellMatrix: PIXI.Graphics[][] = [];
 
 for (let i = 0; i < AUTOMATA_SIZE; i++) {
     
@@ -75,13 +75,63 @@ function swapCellState(event: PIXI.FederatedPointerEvent): void {
     if (playing)
         return;
 
-    for (let i = 0; i < cellMatrix.length; i++) {
-        for (let j = 0; j < cellMatrix[i].length; j++) {
+    for (let i = 0; i < AUTOMATA_SIZE; i++) {
+        for (let j = 0; j < AUTOMATA_SIZE; j++) {
             if (cellMatrix[i][j].containsPoint(event.client))
                 cellMatrix[i][j].tint = (cellMatrix[i][j].tint === CellStates.ON) ? CellStates.OFF : CellStates.ON;
         }
     }
 }
+
+function updateCellStates(): void {
+
+    let nextGen: boolean[][] = [];
+
+    // Generate next generation
+    for (let i = 0; i < AUTOMATA_SIZE; i++) {
+        nextGen[i] = [];
+        for (let j = 0; j < AUTOMATA_SIZE; j++) {
+            let neighbors = countNeighbors(i, j);
+
+            if (cellMatrix[i][j].tint === CellStates.ON) {
+                if (neighbors < 2 || neighbors > 3)
+                    nextGen[i][j] = false;
+                else
+                    nextGen[i][j] = true;
+            }
+            else if (neighbors === 3) {
+                nextGen[i][j] = true;
+            }
+            else {
+                nextGen[i][j] = false;
+            }
+        }
+    }
+
+    // Map generation to graphical cells
+    for (let i = 0; i < AUTOMATA_SIZE; i++) {
+        for (let j = 0; j < AUTOMATA_SIZE; j++) {
+            switch (nextGen[i][j]) {
+                case true:
+                    cellMatrix[i][j].tint = CellStates.ON;
+                    break;
+                case false:
+                    cellMatrix[i][j].tint = CellStates.OFF;
+                    break;
+            }
+        }
+    }
+}
+
+let elapsed = 0.0;
+app.ticker.add((delta) => {
+    elapsed += delta / 60;
+    if (playing && elapsed > 0.5) {
+        updateCellStates();
+        elapsed = 0.0;
+    }
+
+});
 
 function countNeighbors(x: number, y: number): number {
     // naive
@@ -99,32 +149,3 @@ function countNeighbors(x: number, y: number): number {
 
     return count;
 }
-
-function updateCellStates(): void {
-    for (let i = 0; i < cellMatrix.length; i++) {
-        for (let j = 0; j < cellMatrix[i].length; j++) {
-            // console.log(i, j)
-            let neighbors = countNeighbors(i, j);
-
-            if (cellMatrix[i][j].tint === CellStates.ON) {
-                if (neighbors < 2 || neighbors > 3)
-                    cellMatrix[i][j].tint = CellStates.OFF;
-            }
-            else if (neighbors === 3) {
-                cellMatrix[i][j].tint = CellStates.ON;
-            }
-        }
-    }
-}
-
-
-let elapsed = 0.0;
-app.ticker.add((delta) => {
-    elapsed += delta / 60;
-    console.log(elapsed);
-    if (playing && elapsed > 1) {
-        updateCellStates();
-        elapsed = 0.0;
-    }
-
-});
