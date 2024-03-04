@@ -3,9 +3,9 @@ name: Build and Deploy to Github Pages
 
 on:
   push:
-    branches: [ "master" ]
+    branches: [ "main" ]
   pull_request:
-    branches: [ "master" ]
+    branches: [ "main" ]
 
 permissions:
   contents: read # for accessing the repository contents
