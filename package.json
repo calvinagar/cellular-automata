@@ -1,6 +1,6 @@
 {
     "scripts": {
-        "setup": "npm ci && npm start",
+        "setup": "npm i && npm start",
         "start": "webpack serve",
         "build": "webpack build --mode development",
         "prod": "webpack build --mode production"
